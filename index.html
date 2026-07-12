@@ -63,7 +63,7 @@ body::before{content:'';position:fixed;inset:-50%;width:200%;height:200%;backgro
 .main-card::after{content:'ARCHIVE';position:absolute;right:-8px;bottom:clamp(60px,16vw,110px);font-family:var(--font-display);font-size:clamp(64px,18vw,120px);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(180,74,255,.12);pointer-events:none;letter-spacing:2px}
 
 /* 스펙 행 */
-.card-top{font-family:var(--font-cap);font-size:clamp(8px,2.2vw,10px);letter-spacing:3px;color:var(--dim);display:flex;justify-content:space-between;gap:8px;margin-bottom:clamp(18px,5vw,30px)}
+.card-top{display:flex;justify-content:flex-end;margin-bottom:clamp(14px,4vw,22px)}
 .card-top .dot{color:var(--teal)}
 
 /* 히어로 타이포: 아웃라인 에코 + 솔리드 스택 */
@@ -166,36 +166,31 @@ h2 .en{font-family:var(--font-cap);font-size:clamp(8px,2.2vw,9px);letter-spacing
 @media(prefers-reduced-motion:reduce){.gbw-eq span,.gbw-title,.gbw-cart{animation:none !important}}
 
 
-/* ===== 라이트 모드 ===== */
-body,.main-card{transition:background .35s,color .35s}
-.cord{position:fixed;top:0;right:clamp(26px,8vw,64px);z-index:950;background:none;border:none;padding:0 8px 4px;display:flex;flex-direction:column;align-items:center;transform-origin:top center;animation:cordSwing 5s ease-in-out infinite;cursor:pointer}
-.cord .line{width:2px;height:clamp(64px,12vh,110px);background:linear-gradient(180deg,var(--border2) 0%,var(--teal) 85%);box-shadow:0 0 6px var(--glow-teal)}
-.cord .knob{width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe9a8,var(--amber));box-shadow:0 0 10px rgba(212,160,83,.75);margin-top:-1px;transition:box-shadow .2s}
-.cord:hover .knob,.cord:focus-visible .knob{box-shadow:0 0 16px rgba(212,160,83,1),0 0 30px rgba(212,160,83,.5)}
-.cord .tag{font-family:var(--font-cap);font-size:7px;color:var(--dim);letter-spacing:1px;margin-top:5px;white-space:nowrap}
-.cord.pull{animation:cordPull .5s ease}
-@keyframes cordSwing{0%,100%{transform:rotate(-1.6deg)}50%{transform:rotate(1.6deg)}}
-@keyframes cordPull{0%{transform:translateY(0)}35%{transform:translateY(14px)}65%{transform:translateY(-3px)}100%{transform:translateY(0)}}
-html.light .cord .knob{background:radial-gradient(circle at 35% 30%,#d9c8ff,#7a4ae0);box-shadow:0 0 10px rgba(122,74,224,.55)}
-html.light .cord:hover .knob,html.light .cord:focus-visible .knob{box-shadow:0 0 16px rgba(122,74,224,.9),0 0 30px rgba(122,74,224,.4)}
-@media(prefers-reduced-motion:reduce){.cord{animation:none}}
-html.light{--bg:#ece4fb;--text:#3b3450;--dim:#7d7698;--amber:#b06a10;--teal:#7a4ae0;--teal2:#5a2fb6;--pink:#c04a68;--border:rgba(122,74,224,.16);--border2:rgba(122,74,224,.4);--glow-teal:rgba(122,74,224,.22)}
-html.light body{background:linear-gradient(180deg,#f0eafc,#e6dbf8)}
-html.light .main-card{background:rgba(255,254,251,.92);box-shadow:0 0 40px rgba(122,74,224,.16),14px 18px 60px rgba(80,60,140,.28)}
-html.light .hero-name .solid{color:#2e1f5e}
-html.light .hero-name .ghost{-webkit-text-stroke:1.5px rgba(122,74,224,.6)}
-html.light .main-card::after{-webkit-text-stroke:1px rgba(122,74,224,.16)}
-html.light .projects a:hover,html.light .projects a:focus-visible{background:rgba(122,74,224,.07)}
-html.light .bar{background:rgba(122,74,224,.08)}
-html.light ::selection{background:#7a4ae0;color:#fff}
-/* 배경 장식 라이트 보정 */
-html.light .bg-grid{filter:invert(.85)}
-html.light .bg-textcol.tc2{-webkit-text-stroke:2px rgba(58,37,112,.35)}
-html.light .bg-textcol.tc3{color:rgba(58,37,112,.22)}
-html.light .bg-star path[fill="#ffffff"]{fill:#8a74c8}
-html.light .bg-star path[stroke="#ffffff"]{stroke:#8a74c8}
-html.light .sparkle.wh{background:#7a4ae0;box-shadow:0 0 4px rgba(122,74,224,.5),0 0 8px rgba(122,74,224,.25)}
-html.light .gbw-mini{background:rgba(255,255,255,.92);color:#5a2fb6;border-color:rgba(122,74,224,.45)}
+
+/* ===== 카드 불 스위치 (도트 토글) ===== */
+.sw-dot{background:none;border:none;display:flex;align-items:center;gap:9px;padding:0;cursor:pointer}
+.sw-lab{font-family:var(--font-cap);font-size:8px;letter-spacing:2px;color:var(--dim);transition:color .2s}
+.sw-dot:hover .sw-lab{color:var(--teal)}
+.sw-track{width:78px;height:28px;background:rgba(6,10,16,.7);border:2px solid var(--border2);position:relative;transition:background .3s,border-color .2s}
+.sw-dot:hover .sw-track,.sw-dot:focus-visible .sw-track{border-color:var(--teal)}
+.sw-track::before{content:'OFF';position:absolute;right:8px;top:50%;transform:translateY(-50%);font-family:var(--font-cap);font-size:8px;letter-spacing:1px;color:var(--pink)}
+.sw-nub{position:absolute;top:2px;left:2px;width:32px;height:20px;background:repeating-linear-gradient(90deg,#8a74c8 0 4px,#6a5a9c 4px 8px);border:1px solid #c8bce8;transition:left .18s steps(3),background .2s}
+.main-card.lit .sw-track{background:rgba(122,74,224,.08)}
+.main-card.lit .sw-track::before{content:'ON';left:9px;right:auto;color:#b06a10;text-shadow:0 0 6px rgba(212,160,83,.5)}
+.main-card.lit .sw-nub{left:40px;background:repeating-linear-gradient(90deg,#ffd98a 0 4px,#d4a053 4px 8px);border-color:#fff0c8;box-shadow:0 0 10px rgba(212,160,83,.5)}
+
+/* ===== 라이트 모드: 카드 내부만 ===== */
+.main-card{transition:background .35s,box-shadow .35s}
+.main-card.lit{
+  --text:#3b3450;--dim:#6a6288;--amber:#b06a10;--teal:#7a4ae0;--teal2:#5a2fb6;--pink:#c04a68;
+  --border:rgba(122,74,224,.16);--border2:rgba(122,74,224,.42);--glow-teal:rgba(122,74,224,.22);
+  background:rgba(255,254,251,.94);
+  box-shadow:0 0 44px rgba(255,240,200,.2),14px 18px 60px rgba(0,0,0,.5);
+}
+.main-card.lit .hero-name .solid{color:#2e1f5e;animation:none;text-shadow:none}
+.main-card.lit::after{-webkit-text-stroke:1px rgba(122,74,224,.15)}
+.main-card.lit .projects a:hover,.main-card.lit .projects a:focus-visible{background:rgba(122,74,224,.06)}
+.main-card.lit .bar{background:rgba(122,74,224,.07)}
 
 /* 푸터: 바코드 */
 footer{display:flex;justify-content:space-between;align-items:center;gap:12px;font-family:var(--font-cap);font-size:clamp(8px,2.2vw,10px);letter-spacing:2px;color:var(--dim);border-top:1px solid var(--border);padding-top:clamp(12px,3.5vw,16px);position:relative;z-index:1}
@@ -229,7 +224,7 @@ a:focus-visible{outline:1px solid var(--teal);outline-offset:3px}
 <!-- ===== 카드 ===== -->
 <main class="stage">
   <div class="main-card">
-    <div class="card-top"><span>BSD — 2026</span><span class="dot">◆ ◆ ◆</span><span>NO.0451-88313888</span></div>
+    <div class="card-top"><button class="sw-dot" id="theme-sw" aria-label="카드 불 켜기/끄기" aria-pressed="false"><span class="sw-lab">LIGHT</span><span class="sw-track"><span class="sw-nub"></span></span></button></div>
 
     <div class="hero">
       <div class="eyebrow">PERSONAL ARCHIVE VOL.1</div>
@@ -274,13 +269,6 @@ a:focus-visible{outline:1px solid var(--teal);outline-offset:3px}
     </footer>
   </div>
 </main>
-
-<!-- 방 불 스위치 (라이트/다크) -->
-<button class="cord" id="theme-cord" aria-label="불 켜기/끄기">
-  <span class="line" aria-hidden="true"></span>
-  <span class="knob" aria-hidden="true"></span>
-  <span class="tag" id="cord-tag">딸깍 — 불 켜기</span>
-</button>
 
 <!-- DUCKBOY 뮤직 플레이어 -->
 <div id="gbw" class="gbw open">
@@ -352,21 +340,17 @@ var songs=[
   document.getElementById('gbw-open').addEventListener('click',function(){root.classList.add('open')});
 })();
 
-// 방 불 스위치: 라이트/다크 토글 (선택 기억)
+// 카드 불 스위치: 도트 토글 (선택 기억, 카드에만 적용)
 (function(){
-  var cord=document.getElementById('theme-cord'),tag=document.getElementById('cord-tag');
-  function set(light){
-    document.documentElement.classList.toggle('light',light);
-    tag.textContent=light?'딸깍 — 불 끄기':'딸깍 — 불 켜기';
-    try{localStorage.setItem('bsd-theme',light?'light':'dark')}catch(e){}
+  var sw=document.getElementById('theme-sw'),card=document.querySelector('.main-card');
+  function set(l){
+    card.classList.toggle('lit',l);
+    sw.setAttribute('aria-pressed',l?'true':'false');
+    try{localStorage.setItem('bsd-card-light',l?'1':'0')}catch(e){}
   }
-  var saved=null;try{saved=localStorage.getItem('bsd-theme')}catch(e){}
-  set(saved==='light');
-  cord.addEventListener('click',function(){
-    cord.classList.add('pull');
-    setTimeout(function(){set(!document.documentElement.classList.contains('light'))},170);
-    setTimeout(function(){cord.classList.remove('pull')},520);
-  });
+  var s=null;try{s=localStorage.getItem('bsd-card-light')}catch(e){}
+  set(s==='1');
+  sw.addEventListener('click',function(){set(!card.classList.contains('lit'))});
 })();
 
 // 효과음: 클릭 + 타이핑 (원본과 동일한 방식)
