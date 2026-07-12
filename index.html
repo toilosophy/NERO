@@ -165,6 +165,38 @@ h2 .en{font-family:var(--font-cap);font-size:clamp(8px,2.2vw,9px);letter-spacing
 @keyframes bobCart{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
 @media(prefers-reduced-motion:reduce){.gbw-eq span,.gbw-title,.gbw-cart{animation:none !important}}
 
+
+/* ===== 라이트 모드 ===== */
+body,.main-card{transition:background .35s,color .35s}
+.cord{position:fixed;top:0;right:clamp(26px,8vw,64px);z-index:950;background:none;border:none;padding:0 8px 4px;display:flex;flex-direction:column;align-items:center;transform-origin:top center;animation:cordSwing 5s ease-in-out infinite;cursor:pointer}
+.cord .line{width:2px;height:clamp(64px,12vh,110px);background:linear-gradient(180deg,var(--border2) 0%,var(--teal) 85%);box-shadow:0 0 6px var(--glow-teal)}
+.cord .knob{width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe9a8,var(--amber));box-shadow:0 0 10px rgba(212,160,83,.75);margin-top:-1px;transition:box-shadow .2s}
+.cord:hover .knob,.cord:focus-visible .knob{box-shadow:0 0 16px rgba(212,160,83,1),0 0 30px rgba(212,160,83,.5)}
+.cord .tag{font-family:var(--font-cap);font-size:7px;color:var(--dim);letter-spacing:1px;margin-top:5px;white-space:nowrap}
+.cord.pull{animation:cordPull .5s ease}
+@keyframes cordSwing{0%,100%{transform:rotate(-1.6deg)}50%{transform:rotate(1.6deg)}}
+@keyframes cordPull{0%{transform:translateY(0)}35%{transform:translateY(14px)}65%{transform:translateY(-3px)}100%{transform:translateY(0)}}
+html.light .cord .knob{background:radial-gradient(circle at 35% 30%,#d9c8ff,#7a4ae0);box-shadow:0 0 10px rgba(122,74,224,.55)}
+html.light .cord:hover .knob,html.light .cord:focus-visible .knob{box-shadow:0 0 16px rgba(122,74,224,.9),0 0 30px rgba(122,74,224,.4)}
+@media(prefers-reduced-motion:reduce){.cord{animation:none}}
+html.light{--bg:#ece4fb;--text:#3b3450;--dim:#7d7698;--amber:#b06a10;--teal:#7a4ae0;--teal2:#5a2fb6;--pink:#c04a68;--border:rgba(122,74,224,.16);--border2:rgba(122,74,224,.4);--glow-teal:rgba(122,74,224,.22)}
+html.light body{background:linear-gradient(180deg,#f0eafc,#e6dbf8)}
+html.light .main-card{background:rgba(255,254,251,.92);box-shadow:0 0 40px rgba(122,74,224,.16),14px 18px 60px rgba(80,60,140,.28)}
+html.light .hero-name .solid{color:#2e1f5e}
+html.light .hero-name .ghost{-webkit-text-stroke:1.5px rgba(122,74,224,.6)}
+html.light .main-card::after{-webkit-text-stroke:1px rgba(122,74,224,.16)}
+html.light .projects a:hover,html.light .projects a:focus-visible{background:rgba(122,74,224,.07)}
+html.light .bar{background:rgba(122,74,224,.08)}
+html.light ::selection{background:#7a4ae0;color:#fff}
+/* 배경 장식 라이트 보정 */
+html.light .bg-grid{filter:invert(.85)}
+html.light .bg-textcol.tc2{-webkit-text-stroke:2px rgba(58,37,112,.35)}
+html.light .bg-textcol.tc3{color:rgba(58,37,112,.22)}
+html.light .bg-star path[fill="#ffffff"]{fill:#8a74c8}
+html.light .bg-star path[stroke="#ffffff"]{stroke:#8a74c8}
+html.light .sparkle.wh{background:#7a4ae0;box-shadow:0 0 4px rgba(122,74,224,.5),0 0 8px rgba(122,74,224,.25)}
+html.light .gbw-mini{background:rgba(255,255,255,.92);color:#5a2fb6;border-color:rgba(122,74,224,.45)}
+
 /* 푸터: 바코드 */
 footer{display:flex;justify-content:space-between;align-items:center;gap:12px;font-family:var(--font-cap);font-size:clamp(8px,2.2vw,10px);letter-spacing:2px;color:var(--dim);border-top:1px solid var(--border);padding-top:clamp(12px,3.5vw,16px);position:relative;z-index:1}
 .barcode{display:flex;gap:1px;height:16px}
@@ -243,11 +275,18 @@ a:focus-visible{outline:1px solid var(--teal);outline-offset:3px}
   </div>
 </main>
 
+<!-- 방 불 스위치 (라이트/다크) -->
+<button class="cord" id="theme-cord" aria-label="불 켜기/끄기">
+  <span class="line" aria-hidden="true"></span>
+  <span class="knob" aria-hidden="true"></span>
+  <span class="tag" id="cord-tag">딸깍 — 불 켜기</span>
+</button>
+
 <!-- DUCKBOY 뮤직 플레이어 -->
 <div id="gbw" class="gbw open">
   <div class="gbw-body">
     <button class="gbw-min" id="gbw-min" aria-label="최소화">▬</button>
-    <div class="gbw-brand"><span class="gbw-led" aria-hidden="true"></span>DUCKBOY ♪</div>
+    <div class="gbw-brand"><span class="gbw-led" aria-hidden="true"></span>PLAYLIST ♪</div>
     <div class="gbw-bezel"><div class="gbw-lcd">
       <div class="gbw-no" id="gbw-no">TRACK --/04</div>
       <div class="gbw-title idle" id="gbw-title">PUSH ▶</div>
@@ -268,7 +307,7 @@ a:focus-visible{outline:1px solid var(--teal);outline-offset:3px}
     </div>
     <div class="gbw-spk" aria-hidden="true"></div>
   </div>
-  <button class="gbw-mini" id="gbw-open" aria-label="플레이어 열기"><span class="gbw-cart"></span>♪ DUCKBOY</button>
+  <button class="gbw-mini" id="gbw-open" aria-label="플레이어 열기"><span class="gbw-cart"></span>♪ PLAYLIST</button>
 </div>
 
 
@@ -281,7 +320,7 @@ a:focus-visible{outline:1px solid var(--teal);outline-offset:3px}
 // 반짝이 생성 (캔버스 안 → 배경과 함께 스케일)
 (function(){var layer=document.createElement('div');layer.id='bg-sparkle-layer';document.getElementById('bg-canvas').appendChild(layer);var sizes=['','sm','lg'],colors=['','wh'],anims=['g1','g2','g3'];for(var i=0;i<35;i++){var d=document.createElement('div');d.className='sparkle '+[sizes[Math.random()*3|0],colors[Math.random()*2|0],anims[Math.random()*3|0]].filter(Boolean).join(' ');d.style.top=(Math.random()*94+3).toFixed(1)+'%';d.style.left=(Math.random()*90+2).toFixed(1)+'%';d.style.animationDelay=(Math.random()*4).toFixed(2)+'s';layer.appendChild(d)}})();
 
-// DUCKBOY —— 곡 추가/삭제는 이 목록만 고치면 됨
+// PLAYLIST 플레이어 —— 곡 추가/삭제는 이 목록만 고치면 됨
 var songs=[
   {title:"AKRAPOVIC inst", url:"./akrapovic.mp3"},
   {title:"Another Side",   url:"./another-side.mp3"},
@@ -311,6 +350,23 @@ var songs=[
   audio.addEventListener('error',function(){if(cur>=0){title.textContent='NO FILE: '+songs[cur].url;ui(false)}});
   document.getElementById('gbw-min').addEventListener('click',function(){root.classList.remove('open')});
   document.getElementById('gbw-open').addEventListener('click',function(){root.classList.add('open')});
+})();
+
+// 방 불 스위치: 라이트/다크 토글 (선택 기억)
+(function(){
+  var cord=document.getElementById('theme-cord'),tag=document.getElementById('cord-tag');
+  function set(light){
+    document.documentElement.classList.toggle('light',light);
+    tag.textContent=light?'딸깍 — 불 끄기':'딸깍 — 불 켜기';
+    try{localStorage.setItem('bsd-theme',light?'light':'dark')}catch(e){}
+  }
+  var saved=null;try{saved=localStorage.getItem('bsd-theme')}catch(e){}
+  set(saved==='light');
+  cord.addEventListener('click',function(){
+    cord.classList.add('pull');
+    setTimeout(function(){set(!document.documentElement.classList.contains('light'))},170);
+    setTimeout(function(){cord.classList.remove('pull')},520);
+  });
 })();
 
 // 효과음: 클릭 + 타이핑 (원본과 동일한 방식)
