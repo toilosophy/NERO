@@ -113,6 +113,27 @@ h2 .en{font-family:var(--font-cap);font-size:clamp(8px,2.2vw,9px);letter-spacing
 .bar{height:clamp(12px,3.2vw,14px);border:1px solid var(--border2);padding:2px;background:rgba(180,74,255,.05)}
 .bar i{display:block;height:100%;width:0;background:repeating-linear-gradient(90deg,var(--teal) 0 8px,transparent 8px 11px);box-shadow:0 0 10px var(--glow-teal);transition:width 1.2s steps(12);filter:drop-shadow(0 0 3px var(--teal))}
 
+/* 뮤직 플레이어: 픽셀 데크 */
+@keyframes eq1{0%,100%{height:4px}30%{height:14px}60%{height:8px}}
+@keyframes eq2{0%,100%{height:10px}40%{height:4px}70%{height:16px}}
+@keyframes eq3{0%,100%{height:6px}25%{height:12px}55%{height:5px}80%{height:15px}}
+.player{margin:clamp(20px,5vw,30px) 0 clamp(18px,4.5vw,26px);border:1px solid var(--border2);background:rgba(180,74,255,.04);padding:clamp(9px,2.6vw,12px) clamp(10px,3vw,14px);clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%);position:relative;z-index:1}
+.p-row{display:flex;align-items:center;gap:clamp(7px,2vw,10px)}
+.p-btn{flex:none;font-family:var(--font-cap);background:none;border:1px solid var(--border2);color:var(--teal);width:clamp(26px,7vw,30px);height:clamp(22px,6vw,26px);font-size:9px;display:flex;align-items:center;justify-content:center;transition:all .2s;padding:0}
+.p-btn:hover,.p-btn:focus-visible{border-color:var(--teal);box-shadow:0 0 10px var(--glow-teal);color:#fff}
+.p-btn.play{border-color:var(--teal);background:rgba(180,74,255,.12)}
+.p-title{flex:1;min-width:0;font-family:var(--font-cap);font-size:clamp(9px,2.6vw,11px);letter-spacing:1px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.p-title .mk{color:var(--amber)}
+.eq{flex:none;display:flex;gap:2px;align-items:flex-end;height:16px}
+.eq span{width:3px;height:4px;background:var(--teal);box-shadow:0 0 4px var(--glow-teal)}
+.player.on .eq span:nth-child(1){animation:eq1 .7s steps(3) infinite}
+.player.on .eq span:nth-child(2){animation:eq2 .9s steps(3) infinite}
+.player.on .eq span:nth-child(3){animation:eq3 .8s steps(3) infinite}
+.player.on .eq span:nth-child(4){animation:eq1 .6s steps(3) infinite reverse}
+.p-seek{margin-top:8px;height:10px;border:1px solid var(--border2);padding:2px;background:rgba(180,74,255,.05)}
+.p-seek i{display:block;height:100%;width:0;background:repeating-linear-gradient(90deg,var(--teal) 0 6px,transparent 6px 8px);box-shadow:0 0 8px var(--glow-teal);pointer-events:none}
+@media(prefers-reduced-motion:reduce){.player.on .eq span{animation:none}}
+
 /* 푸터: 바코드 */
 footer{display:flex;justify-content:space-between;align-items:center;gap:12px;font-family:var(--font-cap);font-size:clamp(8px,2.2vw,10px);letter-spacing:2px;color:var(--dim);border-top:1px solid var(--border);padding-top:clamp(12px,3.5vw,16px);position:relative;z-index:1}
 .barcode{display:flex;gap:1px;height:16px}
@@ -183,6 +204,17 @@ a:focus-visible{outline:1px solid var(--teal);outline-offset:3px}
       </div>
     </section>
 
+    <div class="player" id="player">
+      <div class="p-row">
+        <button class="p-btn" id="p-prev" aria-label="이전 곡">◀◀</button>
+        <button class="p-btn play" id="p-play" aria-label="재생/일시정지">▶</button>
+        <button class="p-btn" id="p-next" aria-label="다음 곡">▶▶</button>
+        <div class="p-title"><span class="mk">♪</span> <span id="p-name">TAPE READY</span></div>
+        <div class="eq" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      </div>
+      <div class="p-seek" id="p-seek" title="클릭해서 구간 이동"><i id="p-fill"></i></div>
+    </div>
+
     <footer>
       <span>© 2026 ARCHIVE</span>
       <div class="barcode" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
@@ -197,6 +229,30 @@ a:focus-visible{outline:1px solid var(--teal);outline-offset:3px}
 
 // 반짝이 생성 (캔버스 안 → 배경과 함께 스케일)
 (function(){var layer=document.createElement('div');layer.id='bg-sparkle-layer';document.getElementById('bg-canvas').appendChild(layer);var sizes=['','sm','lg'],colors=['','wh'],anims=['g1','g2','g3'];for(var i=0;i<35;i++){var d=document.createElement('div');d.className='sparkle '+[sizes[Math.random()*3|0],colors[Math.random()*2|0],anims[Math.random()*3|0]].filter(Boolean).join(' ');d.style.top=(Math.random()*94+3).toFixed(1)+'%';d.style.left=(Math.random()*90+2).toFixed(1)+'%';d.style.animationDelay=(Math.random()*4).toFixed(2)+'s';layer.appendChild(d)}})();
+
+// 뮤직 플레이어 —— 곡 추가/삭제는 이 목록만 고치면 됨
+var songs=[
+  {title:"AKRAPOVIC inst", url:"./akrapovic.mp3"},
+  {title:"Another Side",   url:"./another-side.mp3"},
+  {title:"Monochrome",     url:"./monochrome.mp3"},
+  {title:"블루 삼각 김밥",  url:"./marine-song.mp3"}
+];
+(function(){
+  var cur=0,audio=new Audio();audio.volume=0.2;
+  var box=document.getElementById('player'),btn=document.getElementById('p-play'),
+      name=document.getElementById('p-name'),seek=document.getElementById('p-seek'),fill=document.getElementById('p-fill');
+  function load(i){cur=(i+songs.length)%songs.length;audio.src=songs[cur].url;name.textContent=songs[cur].title}
+  function ui(p){btn.textContent=p?'❚❚':'▶';box.classList.toggle('on',p)}
+  function play(){audio.play().then(function(){ui(true)}).catch(function(){ui(false)})}
+  btn.addEventListener('click',function(){if(!audio.src)load(0);audio.paused?play():(audio.pause(),ui(false))});
+  document.getElementById('p-next').addEventListener('click',function(){load(cur+1);play()});
+  document.getElementById('p-prev').addEventListener('click',function(){load(cur-1);play()});
+  audio.addEventListener('ended',function(){load(cur+1);play()});
+  audio.addEventListener('timeupdate',function(){fill.style.width=(audio.duration?audio.currentTime/audio.duration*100:0)+'%'});
+  audio.addEventListener('error',function(){name.textContent='파일 없음: '+songs[cur].url;ui(false)});
+  seek.addEventListener('click',function(e){if(!audio.duration)return;var r=seek.getBoundingClientRect();audio.currentTime=(e.clientX-r.left)/r.width*audio.duration});
+  load(0);
+})();
 
 // 효과음: 클릭 + 타이핑 (원본과 동일한 방식)
 document.body.insertAdjacentHTML('beforeend','<audio id="clicksfx" src="./click.mp3" preload="auto"></audio><audio id="typesfx" src="./Typing.mp3" preload="auto"></audio>');
