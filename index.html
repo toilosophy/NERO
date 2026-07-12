@@ -113,26 +113,57 @@ h2 .en{font-family:var(--font-cap);font-size:clamp(8px,2.2vw,9px);letter-spacing
 .bar{height:clamp(12px,3.2vw,14px);border:1px solid var(--border2);padding:2px;background:rgba(180,74,255,.05)}
 .bar i{display:block;height:100%;width:0;background:repeating-linear-gradient(90deg,var(--teal) 0 8px,transparent 8px 11px);box-shadow:0 0 10px var(--glow-teal);transition:width 1.2s steps(12);filter:drop-shadow(0 0 3px var(--teal))}
 
-/* 뮤직 플레이어: 픽셀 데크 */
-@keyframes eq1{0%,100%{height:4px}30%{height:14px}60%{height:8px}}
-@keyframes eq2{0%,100%{height:10px}40%{height:4px}70%{height:16px}}
-@keyframes eq3{0%,100%{height:6px}25%{height:12px}55%{height:5px}80%{height:15px}}
-.player{margin:clamp(20px,5vw,30px) 0 clamp(18px,4.5vw,26px);border:1px solid var(--border2);background:rgba(180,74,255,.04);padding:clamp(9px,2.6vw,12px) clamp(10px,3vw,14px);clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%);position:relative;z-index:1}
-.p-row{display:flex;align-items:center;gap:clamp(7px,2vw,10px)}
-.p-btn{flex:none;font-family:var(--font-cap);background:none;border:1px solid var(--border2);color:var(--teal);width:clamp(26px,7vw,30px);height:clamp(22px,6vw,26px);font-size:9px;display:flex;align-items:center;justify-content:center;transition:all .2s;padding:0}
-.p-btn:hover,.p-btn:focus-visible{border-color:var(--teal);box-shadow:0 0 10px var(--glow-teal);color:#fff}
-.p-btn.play{border-color:var(--teal);background:rgba(180,74,255,.12)}
-.p-title{flex:1;min-width:0;font-family:var(--font-cap);font-size:clamp(9px,2.6vw,11px);letter-spacing:1px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.p-title .mk{color:var(--amber)}
-.eq{flex:none;display:flex;gap:2px;align-items:flex-end;height:16px}
-.eq span{width:3px;height:4px;background:var(--teal);box-shadow:0 0 4px var(--glow-teal)}
-.player.on .eq span:nth-child(1){animation:eq1 .7s steps(3) infinite}
-.player.on .eq span:nth-child(2){animation:eq2 .9s steps(3) infinite}
-.player.on .eq span:nth-child(3){animation:eq3 .8s steps(3) infinite}
-.player.on .eq span:nth-child(4){animation:eq1 .6s steps(3) infinite reverse}
-.p-seek{margin-top:8px;height:10px;border:1px solid var(--border2);padding:2px;background:rgba(180,74,255,.05)}
-.p-seek i{display:block;height:100%;width:0;background:repeating-linear-gradient(90deg,var(--teal) 0 6px,transparent 6px 8px);box-shadow:0 0 8px var(--glow-teal);pointer-events:none}
-@media(prefers-reduced-motion:reduce){.player.on .eq span{animation:none}}
+
+
+/* ===== DUCKBOY 뮤직 플레이어 (아토믹 퍼플) ===== */
+@keyframes gbBlink{0%,100%{opacity:1}50%{opacity:.2}}
+@keyframes geq1{0%,100%{height:4px}30%{height:16px}60%{height:8px}}
+@keyframes geq2{0%,100%{height:10px}40%{height:4px}70%{height:18px}}
+.gbw{position:fixed;right:14px;bottom:14px;z-index:900;font-family:var(--font-cap)}
+.gbw-body{display:none;width:178px;background:linear-gradient(165deg,#c9b8f5 0%,#a289e2 55%,#8a6fd0 100%);border:2px solid rgba(255,255,255,.4);border-radius:12px 12px 42px 12px;padding:12px 12px 15px;box-shadow:0 0 30px rgba(180,74,255,.35),10px 14px 40px rgba(0,0,0,.5),inset 0 2px 5px rgba(255,255,255,.5),inset 0 -4px 8px rgba(58,37,112,.25);position:relative}
+.gbw.open .gbw-body{display:block}
+.gbw-min{position:absolute;top:6px;right:9px;background:none;border:none;color:#4a3a80;font-size:11px;padding:2px 5px;transition:color .15s}
+.gbw-min:hover{color:#d4627a}
+.gbw-brand{font-family:var(--font-display);font-size:10px;letter-spacing:2px;color:#2e1f5e;text-shadow:0 1px 0 rgba(255,255,255,.45);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.gbw-led{width:6px;height:6px;border-radius:50%;background:#6a5a9c;box-shadow:inset 0 1px 1px rgba(0,0,0,.3);transition:all .2s}
+.gbw.playing .gbw-led{background:#ff5aa0;box-shadow:0 0 8px rgba(255,90,160,.9)}
+.gbw-bezel{background:#2e2750;border-radius:10px;padding:9px 11px;box-shadow:inset 0 2px 5px rgba(0,0,0,.5)}
+.gbw-lcd{background:#ece2fd;border:1px solid #b9a6ee;border-radius:3px;padding:8px 9px;position:relative;overflow:hidden}
+.gbw-lcd::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(58,37,112,.06) 0 1px,transparent 1px 3px);pointer-events:none}
+.gbw-no{font-size:8px;color:#8a74c8;letter-spacing:1px}
+.gbw-title{font-size:10.5px;color:#3a2570;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:3px 0 6px}
+.gbw-title.idle{animation:gbBlink 1.2s steps(1) infinite}
+.gbw-eq{display:flex;gap:3px;align-items:flex-end;height:18px}
+.gbw-eq span{width:5px;height:3px;background:#7a4ae0}
+.gbw.playing .gbw-eq span:nth-child(odd){animation:geq1 .7s steps(3) infinite}
+.gbw.playing .gbw-eq span:nth-child(even){animation:geq2 .9s steps(3) infinite}
+.gbw-volrow{display:flex;align-items:center;gap:4px;margin-top:6px}
+.gbw-volrow i{font-style:normal;font-size:7px;color:#8a74c8;letter-spacing:1px}
+.gbw-vol{display:flex;gap:2px}
+.gbw-vol span{width:6px;height:6px;border:1px solid #b9a6ee}
+.gbw-vol span.on{background:#7a4ae0}
+.gbw-lower{display:flex;justify-content:space-between;align-items:center;margin-top:13px;padding:0 1px}
+.gbw-dpad{position:relative;width:62px;height:62px}
+.gbw-dpad button{position:absolute;width:21px;height:21px;background:linear-gradient(180deg,#e2dbf6,#c6baec);border:1px solid #7a64c0;color:#4a3a80;font-size:8px;font-family:var(--font-cap);display:flex;align-items:center;justify-content:center;padding:0;box-shadow:0 1px 2px rgba(58,37,112,.3),inset 0 1px 0 rgba(255,255,255,.5);transition:all .1s}
+.gbw-dpad button:hover{color:#d4627a;border-color:#d4627a}
+.gbw-dpad button:active{transform:translateY(1px);box-shadow:none}
+.gbw-dpad::after{content:'';position:absolute;top:20.5px;left:20.5px;width:21px;height:21px;background:#cfc4ee;border-top:1px solid #7a64c0;border-bottom:1px solid #7a64c0}
+.gbw-u{top:0;left:20.5px;border-radius:5px 5px 0 0}.gbw-d{bottom:0;left:20.5px;border-radius:0 0 5px 5px}.gbw-l{top:20.5px;left:0;border-radius:5px 0 0 5px}.gbw-r{top:20.5px;right:0;border-radius:0 5px 5px 0}
+.gbw-ab{display:flex;gap:10px;align-items:center}
+.gbw-ab .col{display:flex;flex-direction:column;align-items:center;gap:3px}
+.gbw-ab button{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.3);backdrop-filter:blur(2px);border:1.5px solid #3a2570;color:#3a2570;font-size:10px;display:flex;align-items:center;justify-content:center;padding:0;box-shadow:inset 0 1px 2px rgba(255,255,255,.6),0 2px 4px rgba(58,37,112,.25);transition:all .15s}
+.gbw-ab button:hover,.gbw-ab button:focus-visible{border-color:#d4627a;color:#d4627a;box-shadow:0 0 12px rgba(212,98,122,.45),inset 0 1px 2px rgba(255,255,255,.6)}
+.gbw-ab button:active{transform:scale(.9)}
+.gbw-ab .lab{font-size:7px;letter-spacing:1px;color:#4a3a80}
+.gbw-spk{position:absolute;right:15px;bottom:13px;width:34px;height:24px;background:repeating-linear-gradient(115deg,rgba(58,37,112,.35) 0 2px,transparent 2px 7px);border-radius:4px}
+.gbw-mini{display:none;align-items:center;gap:7px;background:rgba(13,24,28,.92);border:1px solid var(--border2);color:var(--teal);padding:8px 12px;font-family:var(--font-cap);font-size:11px;box-shadow:0 0 18px rgba(180,74,255,.2);clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%);transition:all .2s}
+.gbw:not(.open) .gbw-mini{display:flex}
+.gbw-mini:hover{border-color:var(--teal);box-shadow:0 0 20px var(--glow-teal)}
+.gbw-cart{width:13px;height:18px;background:linear-gradient(160deg,#b9a0f0,#7a5ac8);border:1px solid rgba(255,255,255,.4);border-radius:2px;position:relative;box-shadow:0 0 6px rgba(180,74,255,.5)}
+.gbw-cart::before{content:'';position:absolute;inset:3px 3px 7px;background:rgba(255,255,255,.3);border-radius:1px}
+.gbw.playing .gbw-cart{animation:bobCart 1s steps(2) infinite}
+@keyframes bobCart{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+@media(prefers-reduced-motion:reduce){.gbw-eq span,.gbw-title,.gbw-cart{animation:none !important}}
 
 /* 푸터: 바코드 */
 footer{display:flex;justify-content:space-between;align-items:center;gap:12px;font-family:var(--font-cap);font-size:clamp(8px,2.2vw,10px);letter-spacing:2px;color:var(--dim);border-top:1px solid var(--border);padding-top:clamp(12px,3.5vw,16px);position:relative;z-index:1}
@@ -204,17 +235,6 @@ a:focus-visible{outline:1px solid var(--teal);outline-offset:3px}
       </div>
     </section>
 
-    <div class="player" id="player">
-      <div class="p-row">
-        <button class="p-btn" id="p-prev" aria-label="이전 곡">◀◀</button>
-        <button class="p-btn play" id="p-play" aria-label="재생/일시정지">▶</button>
-        <button class="p-btn" id="p-next" aria-label="다음 곡">▶▶</button>
-        <div class="p-title"><span class="mk">♪</span> <span id="p-name">TAPE READY</span></div>
-        <div class="eq" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-      </div>
-      <div class="p-seek" id="p-seek" title="클릭해서 구간 이동"><i id="p-fill"></i></div>
-    </div>
-
     <footer>
       <span>© 2026 ARCHIVE</span>
       <div class="barcode" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
@@ -223,6 +243,37 @@ a:focus-visible{outline:1px solid var(--teal);outline-offset:3px}
   </div>
 </main>
 
+<!-- DUCKBOY 뮤직 플레이어 -->
+<div id="gbw" class="gbw open">
+  <div class="gbw-body">
+    <button class="gbw-min" id="gbw-min" aria-label="최소화">▬</button>
+    <div class="gbw-brand"><span class="gbw-led" aria-hidden="true"></span>DUCKBOY ♪</div>
+    <div class="gbw-bezel"><div class="gbw-lcd">
+      <div class="gbw-no" id="gbw-no">TRACK --/04</div>
+      <div class="gbw-title idle" id="gbw-title">PUSH ▶</div>
+      <div class="gbw-eq" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="gbw-volrow"><i>VOL</i><div class="gbw-vol" id="gbw-vol"></div></div>
+    </div></div>
+    <div class="gbw-lower">
+      <div class="gbw-dpad">
+        <button class="gbw-u" id="gbw-vu" aria-label="볼륨 올리기">▲</button>
+        <button class="gbw-d" id="gbw-vd" aria-label="볼륨 내리기">▼</button>
+        <button class="gbw-l" id="gbw-prev" aria-label="이전 곡">◀</button>
+        <button class="gbw-r" id="gbw-next" aria-label="다음 곡">▶</button>
+      </div>
+      <div class="gbw-ab">
+        <div class="col"><button id="gbw-stop" aria-label="정지">■</button><span class="lab">STOP</span></div>
+        <div class="col"><button id="gbw-play" aria-label="재생/일시정지">▶</button><span class="lab">PLAY</span></div>
+      </div>
+    </div>
+    <div class="gbw-spk" aria-hidden="true"></div>
+  </div>
+  <button class="gbw-mini" id="gbw-open" aria-label="플레이어 열기"><span class="gbw-cart"></span>♪ DUCKBOY</button>
+</div>
+
+
+
+
 <script>
 // 배경 캔버스를 cover처럼 스케일 (요소 위치 절대 안 흩어짐)
 (function(){var W=1920,H=1080;function fit(){var s=Math.max(innerWidth/W,innerHeight/H);document.documentElement.style.setProperty('--bg-scale',s)}addEventListener('resize',fit);addEventListener('orientationchange',fit);fit()})();
@@ -230,7 +281,7 @@ a:focus-visible{outline:1px solid var(--teal);outline-offset:3px}
 // 반짝이 생성 (캔버스 안 → 배경과 함께 스케일)
 (function(){var layer=document.createElement('div');layer.id='bg-sparkle-layer';document.getElementById('bg-canvas').appendChild(layer);var sizes=['','sm','lg'],colors=['','wh'],anims=['g1','g2','g3'];for(var i=0;i<35;i++){var d=document.createElement('div');d.className='sparkle '+[sizes[Math.random()*3|0],colors[Math.random()*2|0],anims[Math.random()*3|0]].filter(Boolean).join(' ');d.style.top=(Math.random()*94+3).toFixed(1)+'%';d.style.left=(Math.random()*90+2).toFixed(1)+'%';d.style.animationDelay=(Math.random()*4).toFixed(2)+'s';layer.appendChild(d)}})();
 
-// 뮤직 플레이어 —— 곡 추가/삭제는 이 목록만 고치면 됨
+// DUCKBOY —— 곡 추가/삭제는 이 목록만 고치면 됨
 var songs=[
   {title:"AKRAPOVIC inst", url:"./akrapovic.mp3"},
   {title:"Another Side",   url:"./another-side.mp3"},
@@ -238,20 +289,28 @@ var songs=[
   {title:"블루 삼각 김밥",  url:"./marine-song.mp3"}
 ];
 (function(){
-  var cur=0,audio=new Audio();audio.volume=0.2;
-  var box=document.getElementById('player'),btn=document.getElementById('p-play'),
-      name=document.getElementById('p-name'),seek=document.getElementById('p-seek'),fill=document.getElementById('p-fill');
-  function load(i){cur=(i+songs.length)%songs.length;audio.src=songs[cur].url;name.textContent=songs[cur].title}
-  function ui(p){btn.textContent=p?'❚❚':'▶';box.classList.toggle('on',p)}
+  var audio=new Audio();var cur=-1,playing=false,vstep=2;
+  var root=document.getElementById('gbw'),title=document.getElementById('gbw-title'),
+      no=document.getElementById('gbw-no'),volbox=document.getElementById('gbw-vol'),
+      playBtn=document.getElementById('gbw-play');
+  for(var i=0;i<8;i++)volbox.appendChild(document.createElement('span'));
+  function drawVol(){[].forEach.call(volbox.children,function(el,i){el.classList.toggle('on',i<vstep)});audio.volume=vstep/8}
+  drawVol();
+  function pad(n){return n<10?'0'+n:n}
+  function ui(p){playing=p;root.classList.toggle('playing',p);playBtn.textContent=p?'❚❚':'▶'}
+  function show(){title.textContent=songs[cur].title;title.classList.remove('idle');no.textContent='TRACK '+pad(cur+1)+'/'+pad(songs.length)}
   function play(){audio.play().then(function(){ui(true)}).catch(function(){ui(false)})}
-  btn.addEventListener('click',function(){if(!audio.src)load(0);audio.paused?play():(audio.pause(),ui(false))});
-  document.getElementById('p-next').addEventListener('click',function(){load(cur+1);play()});
-  document.getElementById('p-prev').addEventListener('click',function(){load(cur-1);play()});
-  audio.addEventListener('ended',function(){load(cur+1);play()});
-  audio.addEventListener('timeupdate',function(){fill.style.width=(audio.duration?audio.currentTime/audio.duration*100:0)+'%'});
-  audio.addEventListener('error',function(){name.textContent='파일 없음: '+songs[cur].url;ui(false)});
-  seek.addEventListener('click',function(e){if(!audio.duration)return;var r=seek.getBoundingClientRect();audio.currentTime=(e.clientX-r.left)/r.width*audio.duration});
-  load(0);
+  function go(i){cur=(i+songs.length)%songs.length;audio.src=songs[cur].url;show();play()}
+  playBtn.addEventListener('click',function(){if(cur<0)return go(0);playing?(audio.pause(),ui(false)):play()});
+  document.getElementById('gbw-stop').addEventListener('click',function(){audio.pause();audio.currentTime=0;ui(false);title.textContent='PUSH ▶';title.classList.add('idle');no.textContent='TRACK --/'+pad(songs.length)});
+  document.getElementById('gbw-next').addEventListener('click',function(){go(cur+1)});
+  document.getElementById('gbw-prev').addEventListener('click',function(){go(cur-1)});
+  document.getElementById('gbw-vu').addEventListener('click',function(){vstep=Math.min(8,vstep+1);drawVol()});
+  document.getElementById('gbw-vd').addEventListener('click',function(){vstep=Math.max(0,vstep-1);drawVol()});
+  audio.addEventListener('ended',function(){go(cur+1)});
+  audio.addEventListener('error',function(){if(cur>=0){title.textContent='NO FILE: '+songs[cur].url;ui(false)}});
+  document.getElementById('gbw-min').addEventListener('click',function(){root.classList.remove('open')});
+  document.getElementById('gbw-open').addEventListener('click',function(){root.classList.add('open')});
 })();
 
 // 효과음: 클릭 + 타이핑 (원본과 동일한 방식)
