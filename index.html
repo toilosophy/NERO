@@ -193,58 +193,119 @@ h2 .en{font-family:var(--font-cap);font-size:clamp(8px,2.2vw,9px);letter-spacing
 .main-card.lit .bar{background:rgba(122,74,224,.07)}
 
 
-/* ===== 인트로 로딩: 아날로그 호러 VHS ===== */
-@keyframes ldnz{0%{transform:translate(0,0)}25%{transform:translate(-4%,3%)}50%{transform:translate(3%,-4%)}75%{transform:translate(-2%,-2%)}100%{transform:translate(0,0)}}
-@keyframes ldlum{0%,100%{opacity:1}50%{opacity:.94}}
-@keyframes ldroll{0%,86%,100%{transform:translateY(0) skewX(0)}88%{transform:translateY(-16px) skewX(.8deg)}91%{transform:translateY(10px) skewX(-.5deg)}95%{transform:translateY(-4px)}}
-@keyframes ldtrackmv{0%{top:110%}100%{top:-15%}}
-@keyframes ldhsj{0%{transform:translateX(0) scaleY(1)}100%{transform:translateX(-10px) scaleY(1.5)}}
-@keyframes ldblink{0%,100%{opacity:1}50%{opacity:.15}}
-@keyframes ldhello{0%,4%{opacity:0;transform:scale(1)}7%,30%{opacity:.95;transform:scale(1)}33%{opacity:.1;transform:scale(1.06) skewX(-3deg)}36%,58%{opacity:.9;transform:scale(1)}60%{opacity:.9;transform:scale(1.14)}62%,82%{opacity:.85;transform:scale(1)}85%{opacity:.15}88%,100%{opacity:.9;transform:scale(1)}}
-@keyframes ldtear{0%{clip-path:inset(0);transform:translateX(0);opacity:1}15%{clip-path:inset(20% 0 55% 0);transform:translateX(-24px)}30%{clip-path:inset(60% 0 8% 0);transform:translateX(20px)}45%{clip-path:inset(5% 0 74% 0);transform:translateX(-14px)}60%{clip-path:inset(42% 0 30% 0);transform:translateX(26px)}78%{clip-path:inset(70% 0 4% 0);transform:translateX(-30px)}100%{clip-path:inset(50% 0 50% 0);transform:translateX(0);opacity:0}}
-#ld{position:fixed;inset:0;z-index:10000;background:#000;overflow:hidden}
-#ld-stage{position:absolute;inset:0}
-#ld.tear #ld-stage{animation:ldtear .55s steps(1) forwards;filter:drop-shadow(5px 0 0 rgba(255,60,120,.6)) drop-shadow(-5px 0 0 rgba(80,180,255,.6))}
-#ld-stage.neg{filter:invert(1) hue-rotate(160deg)}
+/* ===== 인트로: 욕실 형광등 ===== */
+@keyframes biBlink{0%,100%{opacity:1}50%{opacity:.12}}
+@keyframes biSway{0%,100%{transform:rotate(-.5deg)}50%{transform:rotate(.5deg)}}
+@keyframes biBump{0%{translate:0 0}18%{translate:2px 3px;rotate:.9deg}45%{translate:-1.5px 1px;rotate:-.5deg}100%{translate:0 0;rotate:0deg}}
+@keyframes biHum{0%,100%{opacity:1}61%{opacity:.86}62.5%{opacity:1}83%{opacity:.92}84%{opacity:1}}
+@keyframes biAfter{0%{opacity:.55;stroke:#e9dcff}100%{opacity:0;stroke:#b44aff}}
+@keyframes biZap{0%{transform:translate(0,0) rotate(0)}50%{transform:translate(1.5px,-1px) rotate(8deg)}}
+@keyframes biDrift{0%{opacity:0;transform:translate(0,0)}12%{opacity:.8}55%{opacity:.5;transform:translate(var(--dx),var(--dy))}88%{opacity:.7}100%{opacity:0;transform:translate(calc(var(--dx)*1.6),calc(var(--dy)*1.8))}}
+@keyframes biFlyIn{to{opacity:1}}
+@keyframes biFlyPath{0%{transform:translate(-150px,30px)}12%{transform:translate(-60px,-14px)}25%{transform:translate(70px,26px)}38%{transform:translate(150px,-6px)}50%{transform:translate(90px,52px)}63%{transform:translate(-30px,10px)}76%{transform:translate(-120px,58px)}88%{transform:translate(-170px,8px)}100%{transform:translate(-150px,30px)}}
+@keyframes biFlyJig{0%{transform:translate(0,0) rotate(-6deg)}100%{transform:translate(1px,-2px) rotate(7deg)}}
+@keyframes biVent{to{transform:rotate(360deg)}}
+@keyframes biDuck{0%,100%{transform:translateY(0) rotate(-2.5deg)}50%{transform:translateY(-2.5px) rotate(2.5deg)}}
+@keyframes biTp{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+@keyframes biDrop{0%,55%{opacity:0;transform:translateY(0)}58%{opacity:1;transform:translateY(0)}70%{opacity:1;transform:translateY(3px) scaleY(1.3)}84%{opacity:1;transform:translateY(40px) scaleY(1.5)}85%,100%{opacity:0;transform:translateY(40px)}}
+@keyframes biRipple{0%,84%{opacity:0;transform:scale(.3)}86%{opacity:.8;transform:scale(.4)}100%{opacity:0;transform:scale(1.5)}}
+@keyframes biBub{0%,55%{opacity:0;transform:translateY(0) scale(.5)}60%{opacity:.8;transform:translateY(-4px) scale(.7)}92%{opacity:.7;transform:translateY(-30px) scale(1)}96%{opacity:0;transform:translateY(-34px) scale(1.4)}100%{opacity:0}}
+#ld{position:fixed;inset:0;z-index:10000;background:#050308;overflow:hidden}
 .ld-skip{position:absolute;bottom:14px;right:16px;font-family:var(--font-cap);font-size:9px;letter-spacing:2px;color:rgba(233,220,255,.5);background:rgba(10,7,22,.35);border:1px solid rgba(233,220,255,.22);padding:4px 10px;cursor:pointer;z-index:60}
 .ld-skip:hover{color:#ff5aa0;border-color:rgba(255,90,160,.6)}
-.ld-noise{position:absolute;inset:-60%;width:220%;height:220%;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.16'/%3E%3C/svg%3E");animation:ldnz .35s steps(4) infinite;pointer-events:none}
-.ld-smf{position:absolute;inset:0;display:none;align-items:center;justify-content:center;z-index:30;background:rgba(2,0,6,.88)}
-.ld-smf svg{width:44vmin;height:44vmin;filter:drop-shadow(0 0 18px rgba(255,40,90,.8))}
-.ld-smf.go{display:flex}
-.nx-hint{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-family:var(--font-sub);font-size:12px;letter-spacing:3px;color:rgba(240,232,255,.9);text-shadow:0 0 12px rgba(180,74,255,.7);animation:ldblink 1.6s steps(1) infinite;white-space:nowrap;z-index:40;pointer-events:none}
-.nx-vig{position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 22vmin rgba(0,0,0,.5);z-index:28}
-/* ── 인트로 C: 리모컨 / 화면 전체가 브라운관 ── */
-.nx-crt{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,#141026 0%,#0a0718 74%,#060410 100%)}
-.nx-crt::before{content:'';position:absolute;inset:0;background:linear-gradient(112deg,transparent 30%,rgba(233,220,255,.045) 40%,transparent 52%,rgba(233,220,255,.03) 68%,transparent 76%)}
-.nx-curve{position:absolute;inset:0;box-shadow:inset 0 0 26vmin rgba(0,0,0,.7),inset 0 0 6vmin rgba(0,0,0,.5);pointer-events:none;z-index:24}
-.nx-av{position:absolute;top:22px;left:24px;font-family:var(--font-display);font-size:clamp(14px,3.4vw,19px);letter-spacing:3px;color:rgba(233,220,255,.28);z-index:8}
-.nx-sled{position:absolute;bottom:20px;left:24px;display:flex;align-items:center;gap:8px;font-family:var(--font-cap);font-size:8px;letter-spacing:2px;color:rgba(233,220,255,.3);z-index:8}
-.nx-sled i{width:8px;height:8px;border-radius:50%;background:#ff4a5a;box-shadow:0 0 8px rgba(255,74,106,.9);animation:ldblink 1.6s steps(1) infinite}
-.nx-sled.on i{background:#b44aff;box-shadow:0 0 9px #b44aff;animation:none}
-.nx-rmt{position:absolute;right:clamp(8px,5vw,72px);bottom:-24px;width:clamp(140px,26vw,190px);rotate:-13deg;cursor:pointer;transition:transform .18s;z-index:20;transform-origin:50% 90%}
-.nx-rmt:hover{transform:translateY(-10px)}
-.nx-rmt.dn{transform:translateY(4px) scale(.98)}
-.nx-rmt svg{width:100%;height:auto;display:block;filter:drop-shadow(-14px 18px 26px rgba(0,0,0,.65))}
-.nx-pw{animation:nxPwPls 1.8s ease-in-out infinite;transform-origin:center;transform-box:fill-box}
-@keyframes nxPwPls{0%,100%{opacity:.55}50%{opacity:1}}
-.nx-dot{position:absolute;top:50%;left:50%;width:7px;height:7px;translate:-50% -50%;background:#fff;border-radius:50%;box-shadow:0 0 26px #fff,0 0 60px rgba(180,74,255,1);animation:nxDotp .5s forwards;z-index:10}
-@keyframes nxDotp{0%{scale:0}60%{scale:1.8}100%{scale:1}}
-.nx-lh{position:absolute;top:50%;left:0;right:0;height:3px;translate:0 -50%;background:#fff;box-shadow:0 0 22px #fff,0 0 54px rgba(180,74,255,.95);animation:nxLh .35s cubic-bezier(.2,.8,.3,1) forwards;z-index:10}
-@keyframes nxLh{0%{scale:0 1}100%{scale:1 1}}
-.nx-open{position:absolute;inset:0;animation:nxLv .42s cubic-bezier(.2,.8,.3,1) forwards;z-index:10;overflow:hidden}
-@keyframes nxLv{0%{scale:1 .015}100%{scale:1 1}}
-.nx-cbars{position:absolute;inset:0;display:flex}
-.nx-cbars i{flex:1}
-.nx-bcast{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 58%,#3a2c68,#171030 82%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5vmin}
-.nx-bcast .trio{display:flex;gap:5vmin}
-.nx-bcast .trio svg{width:clamp(64px,16vmin,110px);height:auto;filter:drop-shadow(0 0 16px rgba(217,166,255,.8))}
-.nx-bcast .trio svg:nth-child(1){animation:nxHop .8s ease-in-out infinite}
-.nx-bcast .trio svg:nth-child(2){animation:nxHop .8s ease-in-out .13s infinite}
-.nx-bcast .trio svg:nth-child(3){animation:nxHop .8s ease-in-out .26s infinite}
-@keyframes nxHop{0%,100%{margin-top:0}40%{margin-top:-10px}}
-.nx-bcast .hl{font-family:var(--font-display);font-size:clamp(30px,9vmin,58px);letter-spacing:4px;color:#f0ecfa;text-shadow:3px 0 0 rgba(255,40,90,.6),-3px 0 0 rgba(80,180,255,.6),0 0 30px rgba(180,74,255,.5);animation:ldblink 1s steps(2) infinite}
-
+.bi-hand{filter:url(#biRough)}
+.bi-hand2{filter:url(#biRough2)}
+/* 벽 타일 + 바닥 */
+.bi-tiles{position:absolute;left:0;right:0;top:0;bottom:calc(var(--biu)*7);opacity:.13;transition:opacity .12s}
+#ld.lit .bi-tiles{opacity:.4}
+.bi-tiles svg{width:100%;height:100%}
+.bi-floor{position:absolute;left:0;right:0;bottom:0;height:calc(var(--biu)*7);opacity:.13;transition:opacity .12s;border-top:2px solid #8a6fd0;background:repeating-linear-gradient(72deg,rgba(138,111,208,.4) 0 2px,transparent 2px calc(var(--biu)*2.4))}
+#ld.lit .bi-floor{opacity:.38}
+.bi-wet{position:absolute;left:0;right:0;bottom:0;height:calc(var(--biu)*14);opacity:0;transition:opacity .3s;pointer-events:none;background:radial-gradient(46% 130% at 50% 100%, rgba(180,74,255,.15), rgba(126,200,255,.04) 55%, transparent 80%)}
+#ld.lit .bi-wet{opacity:1}
+/* 오브제 공통 */
+.bi-ob{position:absolute;opacity:.12;transition:opacity .12s;pointer-events:none;z-index:3}
+#ld.lit .bi-ob{opacity:.55}
+.bi-ob svg{width:100%;overflow:visible;display:block}
+/* 형광등 */
+.bi-flamp{position:absolute;top:0;left:50%;transform:translateX(-50%);width:calc(var(--biu)*46);z-index:6}
+.bi-flamp svg{width:100%;overflow:visible}
+.bi-flamp .swing{transform-origin:250px 0;animation:biSway 7s ease-in-out infinite}
+.bi-flamp .swing.bump{animation:biSway 7s ease-in-out infinite, biBump .5s ease-out}
+.bi-flamp .glass{fill:#161028;transition:fill .06s}
+.bi-flamp .streak{opacity:.35;transition:opacity .06s}
+.bi-flamp .core,.bi-flamp .haze,.bi-flamp .capglow{opacity:0;transition:opacity .06s}
+#ld.lit .bi-flamp .glass{fill:url(#biTubeGrad)}
+#ld.lit .bi-flamp .streak{opacity:0}
+#ld.lit .bi-flamp .core{opacity:1;animation:biHum 4s steps(1) infinite}
+#ld.lit .bi-flamp .haze{opacity:1}
+#ld.lit .bi-flamp .capglow{opacity:.9}
+#ld.lit .bi-flamp{filter:drop-shadow(0 0 26px rgba(233,220,255,.5)) drop-shadow(0 14px 70px rgba(180,74,255,.35))}
+#ld.after .bi-flamp .core{opacity:1;animation:biAfter .32s ease-out forwards}
+.bi-flamp .spark{opacity:0}
+.bi-flamp .spark.zap{opacity:1;animation:biZap .14s steps(2) infinite}
+/* 빛 원뿔 + 먼지 + 날벌레 */
+.bi-cone{position:absolute;top:calc(var(--biu)*13);left:50%;transform:translateX(-50%);width:calc(var(--biu)*78);height:72%;opacity:0;pointer-events:none;background:radial-gradient(58% 100% at 50% 0%, rgba(233,220,255,.17) 0%, rgba(180,74,255,.06) 52%, transparent 76%)}
+.bi-cone::before{content:'';position:absolute;inset:0;background:radial-gradient(30% 78% at 50% 0%, rgba(255,255,255,.09), transparent 70%)}
+#ld.lit .bi-cone{opacity:1;animation:biHum 4s steps(1) infinite}
+.bi-mote{position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(233,220,255,.55);box-shadow:0 0 5px rgba(233,220,255,.4);opacity:0;pointer-events:none}
+#ld.lit .bi-mote{animation:biDrift var(--dur) ease-in-out var(--dl) infinite}
+.bi-fly{position:absolute;top:calc(var(--biu)*12);left:50%;width:0;height:0;z-index:7;opacity:0;pointer-events:none}
+#ld.lit .bi-fly{animation:biFlyIn .4s .9s forwards, biFlyPath 6.5s linear .9s infinite}
+.bi-fly svg{width:22px;overflow:visible;animation:biFlyJig .16s steps(2) infinite}
+/* 환풍기 / 세면장 / 수건 / 배수구 */
+.bi-vent{left:calc(50% + var(--biu)*27);top:calc(var(--biu)*2.5);width:calc(var(--biu)*9)}
+.bi-vent .blades{transform-origin:50px 50px;animation:biVent 3.5s linear infinite;animation-play-state:paused}
+#ld.lit .bi-vent .blades{animation-play-state:running}
+.bi-vanity{left:calc(50% - var(--biu)*47);bottom:calc(var(--biu)*11);width:calc(var(--biu)*26)}
+.bi-vanity .mshine{opacity:0;transition:opacity .3s}
+#ld.lit .bi-vanity .mshine{opacity:.5}
+.bi-vanity .duckb{transform-origin:50% 100%}
+#ld.lit .bi-vanity .duckb{animation:biDuck 3.2s ease-in-out infinite}
+.bi-drp{opacity:0}
+#ld.lit .bi-drp{animation:biDrop 3.4s cubic-bezier(.6,0,1,.8) infinite}
+.bi-rip{opacity:0;transform-origin:center}
+#ld.lit .bi-rip{animation:biRipple 3.4s ease-out infinite}
+.bi-bub{opacity:0}
+#ld.lit .bi-bub{animation:biBub var(--bd,5s) ease-in var(--bl,0s) infinite}
+.bi-towel{left:calc(50% - var(--biu)*19);bottom:calc(var(--biu)*24);width:calc(var(--biu)*8.5)}
+.bi-towel .cloth{transform-origin:50% 12%}
+#ld.lit .bi-towel .cloth{animation:biTp 4.8s ease-in-out infinite}
+.bi-drain{left:calc(50% + var(--biu)*6);bottom:calc(var(--biu)*2.2);width:calc(var(--biu)*5)}
+/* 정전 */
+#ld.brown .bi-lit{opacity:.06}
+#ld.brown .bi-tiles,#ld.brown .bi-floor{opacity:.15}
+#ld.brown .bi-wet{opacity:0}
+#ld.brown .bi-ob{opacity:.12}
+/* 켜짐 레이어 + 타이틀 */
+.bi-lit{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .09s steps(2)}
+#ld.lit .bi-lit{opacity:1;pointer-events:auto;animation:biHum 4s steps(1) infinite}
+.bi-ttl{position:absolute;top:29%;left:50%;transform:translateX(-50%);text-align:center;width:100%;cursor:pointer}
+.bi-ttl .e{font-family:var(--font-cap);font-size:clamp(9px,2.4vw,11px);letter-spacing:6px;color:#d9a6ff;text-shadow:0 0 12px rgba(180,74,255,.8)}
+.bi-ttl .l1{font-family:var(--font-display);font-size:clamp(38px,10vw,72px);line-height:1.04;letter-spacing:-1px;color:transparent;-webkit-text-stroke:2px #e9dcff;margin-top:12px;filter:drop-shadow(0 0 12px rgba(217,166,255,.28))}
+.bi-ttl .l2{font-family:var(--font-display);font-size:clamp(42px,11vw,80px);line-height:1.04;letter-spacing:-1px;color:#fff;text-shadow:0 0 8px #ff5aa0,0 0 30px rgba(255,90,160,.85)}
+.bi-ttl .l3{font-family:var(--font-cap);font-size:clamp(8px,2.2vw,10px);letter-spacing:clamp(3px,1.4vw,7px);color:#9a8cc4;margin-top:10px}
+.bi-ttl .pr{margin-top:clamp(20px,5vh,34px);font-family:var(--font-display);font-size:clamp(13px,3.4vw,18px);letter-spacing:4px;color:#7ec8ff;text-shadow:0 0 12px rgba(126,200,255,.9);animation:biBlink .95s steps(1) infinite}
+/* 스위치 */
+.bi-sw{position:absolute;left:calc(50% + var(--biu)*30);bottom:calc(var(--biu)*33);width:calc(var(--biu)*8.5);cursor:pointer;z-index:50;background:none;border:none;padding:0}
+.bi-sw svg{width:100%;overflow:visible;display:block}
+.bi-sw .lever{transition:transform .1s steps(2);transform-origin:50px 62px}
+#ld.flick .bi-sw .lever,#ld.lit .bi-sw .lever{transform:rotate(180deg)}
+.bi-sw:hover{filter:drop-shadow(0 0 10px rgba(126,200,255,.5))}
+.bi-sw .glowdot{opacity:.9;animation:biBlink 2.6s steps(1) infinite}
+#ld.flick .bi-sw .glowdot,#ld.lit .bi-sw .glowdot{opacity:0;animation:none}
+.bi-swtag{position:absolute;left:calc(50% + var(--biu)*30);bottom:calc(var(--biu)*30);font-family:var(--font-cap);font-size:clamp(8px,1.8vw,10px);letter-spacing:1px;color:#7ec8ff;transform:rotate(2deg);animation:biBlink 2s steps(1) infinite;pointer-events:none;text-shadow:0 0 8px rgba(126,200,255,.5);z-index:50}
+#ld.flick .bi-swtag,#ld.lit .bi-swtag,#ld.warmed .bi-swtag{display:none}
+.bi-dkg{position:absolute;left:calc(50% + var(--biu)*24);bottom:calc(var(--biu)*27);width:calc(var(--biu)*21);height:calc(var(--biu)*21);background:radial-gradient(circle,rgba(126,200,255,.09),transparent 70%);pointer-events:none}
+#ld.lit .bi-dkg{display:none}
+.bi-hint{position:absolute;bottom:calc(var(--biu)*7 + 12px);left:50%;transform:translateX(-50%);font-family:var(--font-sub);font-size:12px;letter-spacing:3px;color:rgba(240,232,255,.85);text-shadow:0 0 12px rgba(180,74,255,.7);animation:biBlink 1.5s steps(1) infinite;white-space:nowrap;z-index:40;pointer-events:none}
+/* 펜 스크리블 입장 */
+#bi-scrib{position:fixed;inset:0;z-index:10001;pointer-events:none;display:none}
+#bi-scrib.on{display:block}
+#bi-scrib svg{position:absolute;inset:0;width:100%;height:100%}
+#bi-scrib .inkbase{fill:none;stroke:#8b2fd6;stroke-linecap:round;stroke-linejoin:round;filter:url(#biInkB)}
+#bi-scrib .ink{fill:none;stroke:#7a28c2;stroke-linecap:round;stroke-linejoin:round;filter:url(#biInkA)}
+#bi-scrib .pen{position:absolute;width:64px;height:64px;margin:-58px 0 0 -5px;transform-origin:5px 58px;transform:rotate(18deg);filter:drop-shadow(0 0 8px rgba(180,74,255,.5))}
 
 /* ===== 서류철 탭 + 제작 서랍 ===== */
 .card-wrap{position:relative;width:min(600px,100%)}
@@ -320,7 +381,189 @@ a:focus-visible{outline:1px solid var(--teal);outline-offset:3px}
 </head>
 <body>
 
-<div id="ld"><div id="ld-stage"></div><button class="ld-skip" id="ld-skip">SKIP ▸</button></div>
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+  <filter id="biRough" x="-8%" y="-8%" width="116%" height="116%">
+    <feTurbulence id="biS1" type="fractalNoise" baseFrequency="0.016" numOctaves="3" seed="1" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="7"/>
+  </filter>
+  <filter id="biRough2" x="-6%" y="-6%" width="112%" height="112%">
+    <feTurbulence id="biS2" type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="1" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="2.4"/>
+  </filter>
+  <filter id="biInkB" x="-10%" y="-10%" width="120%" height="120%">
+    <feTurbulence id="biS5" type="fractalNoise" baseFrequency="0.05" numOctaves="3" seed="2" result="n1"/>
+    <feDisplacementMap in="SourceGraphic" in2="n1" scale="14" result="d1"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="2" seed="7" result="n2"/>
+    <feDisplacementMap in="d1" in2="n2" scale="5"/>
+  </filter>
+  <filter id="biInkA" x="-10%" y="-10%" width="120%" height="120%">
+    <feTurbulence id="biS3" type="fractalNoise" baseFrequency="0.05" numOctaves="3" seed="2" result="n1"/>
+    <feDisplacementMap in="SourceGraphic" in2="n1" scale="14" result="d1"/>
+    <feTurbulence id="biS4" type="fractalNoise" baseFrequency="0.55" numOctaves="2" seed="7" result="n2"/>
+    <feDisplacementMap in="d1" in2="n2" scale="5" result="d2"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.4" numOctaves="3" seed="4" result="gr"/>
+    <feColorMatrix in="gr" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 2.1 -0.18" result="gra"/>
+    <feComposite in="d2" in2="gra" operator="in"/>
+  </filter>
+  <linearGradient id="biTubeGrad" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#c9a6ff"/><stop offset=".12" stop-color="#f4eeff"/>
+    <stop offset=".5" stop-color="#ffffff"/>
+    <stop offset=".88" stop-color="#f4eeff"/><stop offset="1" stop-color="#c9a6ff"/>
+  </linearGradient>
+</svg>
+<div id="ld">
+  <div class="bi-tiles"><svg preserveAspectRatio="none" viewBox="0 0 800 600" fill="none" id="bi-tilesvg"></svg></div>
+  <div class="bi-floor"></div>
+  <div class="bi-dkg"></div>
+  <div class="bi-flamp">
+    <svg viewBox="0 0 500 150" fill="none">
+      <g class="bi-hand">
+        <path d="M-40 3 L540 3" stroke="#8a6fd0" stroke-width="5" stroke-linecap="round" opacity=".9"/>
+        <rect x="40" y="2" width="28" height="10" rx="3" fill="#2a2140" stroke="#8a6fd0" stroke-width="3"/>
+        <rect x="432" y="2" width="28" height="10" rx="3" fill="#2a2140" stroke="#8a6fd0" stroke-width="3"/>
+      </g>
+      <g class="swing">
+      <g class="bi-hand">
+        <path d="M54 12 L54 86" stroke="#8a6fd0" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M446 12 L446 86" stroke="#8a6fd0" stroke-width="3.5" stroke-linecap="round"/>
+        <rect x="34" y="88" width="40" height="42" rx="7" fill="#2a2140" stroke="#e9dcff" stroke-width="4.5"/>
+        <rect x="426" y="88" width="40" height="42" rx="7" fill="#2a2140" stroke="#e9dcff" stroke-width="4.5"/>
+        <path d="M44 99 H64 M44 109 H64 M44 119 H64" stroke="#8a6fd0" stroke-width="3" stroke-linecap="round"/>
+        <path d="M436 99 H456 M436 109 H456 M436 119 H456" stroke="#8a6fd0" stroke-width="3" stroke-linecap="round"/>
+        <circle class="capglow" cx="74" cy="109" r="4" fill="#ffd9ec"/>
+        <circle class="capglow" cx="426" cy="109" r="4" fill="#ffd9ec"/>
+        <rect class="glass" x="70" y="94" width="360" height="30" rx="15" stroke="#e9dcff" stroke-width="4.5"/>
+        <path class="streak" d="M96 102 H240" stroke="rgba(233,220,255,.55)" stroke-width="3" stroke-linecap="round"/>
+        <path class="core" d="M88 109 H412" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+        <path class="haze" d="M88 109 H412" stroke="rgba(233,220,255,.5)" stroke-width="18" stroke-linecap="round" filter="blur(4px)"/>
+        <g class="spark" id="bi-spark">
+          <path d="M424 88 L432 76 M430 94 L442 86 M420 98 L410 88" stroke="#7ec8ff" stroke-width="3" stroke-linecap="round"/>
+          <path d="M436 82 L440 74" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+        </g>
+      </g>
+      </g>
+    </svg>
+  </div>
+  <div class="bi-cone" id="bi-cone"></div>
+  <div class="bi-fly">
+    <svg viewBox="0 0 22 18" fill="none">
+      <g class="bi-hand2">
+        <ellipse cx="11" cy="11" rx="5" ry="3.6" stroke="#c4d8d0" stroke-width="1.8"/>
+        <path d="M8 8 Q4 2 8 3 Q11 4 11 8" stroke="#c4d8d0" stroke-width="1.5" fill="none"/>
+        <path d="M14 8 Q18 2 14 3 Q11 4 11 8" stroke="#c4d8d0" stroke-width="1.5" fill="none"/>
+      </g>
+    </svg>
+  </div>
+  <div class="bi-ob bi-vent">
+    <svg viewBox="0 0 100 100" fill="none">
+      <g class="bi-hand">
+        <rect x="6" y="6" width="88" height="88" rx="14" fill="rgba(23,16,42,.5)" stroke="#8a6fd0" stroke-width="4.5"/>
+        <circle cx="50" cy="50" r="33" stroke="#8a6fd0" stroke-width="3.5"/>
+        <g class="blades">
+          <path d="M50 50 Q40 30 52 22 Q58 36 50 50 Z" fill="rgba(126,200,255,.35)" stroke="#7ec8ff" stroke-width="2.5"/>
+          <path d="M50 50 Q70 40 78 52 Q64 58 50 50 Z" fill="rgba(126,200,255,.35)" stroke="#7ec8ff" stroke-width="2.5"/>
+          <path d="M50 50 Q40 70 28 62 Q36 48 50 50 Z" fill="rgba(126,200,255,.35)" stroke="#7ec8ff" stroke-width="2.5"/>
+        </g>
+        <circle cx="50" cy="50" r="5" fill="#2a2140" stroke="#e9dcff" stroke-width="3"/>
+      </g>
+    </svg>
+  </div>
+  <div class="bi-ob bi-vanity">
+    <svg viewBox="0 0 260 420" fill="none">
+      <g class="bi-hand">
+        <rect x="34" y="0" width="192" height="152" rx="14" fill="rgba(23,16,42,.5)" stroke="#8a6fd0" stroke-width="5"/>
+        <rect x="46" y="12" width="168" height="128" rx="9" fill="none" stroke="rgba(138,111,208,.5)" stroke-width="2.5"/>
+        <path class="mshine" d="M66 26 L104 118 M88 20 L134 128" stroke="rgba(233,220,255,.6)" stroke-width="4.5" stroke-linecap="round"/>
+        <path d="M28 194 H232" stroke="#e9dcff" stroke-width="5" stroke-linecap="round"/>
+        <path d="M44 196 L36 210 M216 196 L224 210" stroke="#8a6fd0" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M46 170 L50 192 L72 192 L76 170 Z" fill="rgba(23,16,42,.6)" stroke="#8a6fd0" stroke-width="3.5"/>
+        <path d="M55 170 L50 142" stroke="#e9dcff" stroke-width="3" stroke-linecap="round"/>
+        <rect x="45" y="134" width="9" height="11" rx="3" fill="#ff5aa0" transform="rotate(8 49 139)"/>
+        <path d="M67 170 L73 146" stroke="#e9dcff" stroke-width="3" stroke-linecap="round"/>
+        <rect x="70" y="138" width="9" height="11" rx="3" fill="#7ec8ff" transform="rotate(-10 74 143)"/>
+        <g class="duckb">
+          <path d="M122 190 Q112 190 112 181 Q112 173 121 173 Q126 173 128 177 Q136 174 142 179 Q148 184 140 190 Z" fill="rgba(255,90,160,.2)" stroke="#ff5aa0" stroke-width="3" stroke-linejoin="round"/>
+          <circle cx="119" cy="179" r="1.6" fill="#ff5aa0"/>
+          <path d="M112 180 L105 178 L112 183" fill="#7ec8ff" stroke="#7ec8ff" stroke-width="1.5" stroke-linejoin="round"/>
+        </g>
+        <path d="M178 190 L174 156 Q174 150 180 150 L192 150 Q198 150 198 156 L194 190 Z" fill="rgba(23,16,42,.6)" stroke="#8a6fd0" stroke-width="3"/>
+        <rect x="180" y="142" width="12" height="8" rx="2" fill="#7ec8ff" stroke="#e9dcff" stroke-width="2"/>
+        <path d="M179 168 H193" stroke="#ff5aa0" stroke-width="2.5"/>
+        <path d="M118 236 L118 222 Q118 214 126 214 L140 214 Q147 214 147 221 L147 228" stroke="#e9dcff" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+        <path d="M108 218 L124 210" stroke="#e9dcff" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="118" cy="238" r="5" fill="#2a2140" stroke="#8a6fd0" stroke-width="2.5"/>
+        <path class="bi-drp" d="M147 232 q-4 6 0 9 q5 -3 0 -9" fill="#7ec8ff"/>
+        <path d="M18 262 Q18 250 32 250 L228 250 Q242 250 242 262 Q242 310 196 324 L64 324 Q18 310 18 262 Z" fill="rgba(23,16,42,.6)" stroke="#e9dcff" stroke-width="5"/>
+        <path d="M40 266 Q130 288 220 266" stroke="rgba(126,200,255,.45)" stroke-width="3.5" fill="none"/>
+        <ellipse class="bi-rip" cx="147" cy="272" rx="17" ry="5" stroke="#7ec8ff" stroke-width="2.5" fill="none"/>
+        <rect x="192" y="238" width="32" height="13" rx="6" fill="rgba(255,90,160,.25)" stroke="#ff5aa0" stroke-width="3"/>
+        <circle class="bi-bub" style="--bd:4.6s;--bl:.3s" cx="200" cy="232" r="4" stroke="#7ec8ff" stroke-width="2" fill="none"/>
+        <circle class="bi-bub" style="--bd:5.4s;--bl:1.6s" cx="214" cy="228" r="3" stroke="#e9dcff" stroke-width="2" fill="none"/>
+        <circle class="bi-bub" style="--bd:6.1s;--bl:2.8s" cx="207" cy="234" r="2.4" stroke="#7ec8ff" stroke-width="1.8" fill="none"/>
+        <path d="M130 324 L130 354 Q130 372 148 372 Q166 372 166 356 L166 348" stroke="#8a6fd0" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+        <circle cx="166" cy="344" r="7" fill="#2a2140" stroke="#8a6fd0" stroke-width="3"/>
+      </g>
+    </svg>
+  </div>
+  <div class="bi-ob bi-towel">
+    <svg viewBox="0 0 90 150" fill="none">
+      <g class="bi-hand">
+        <circle cx="45" cy="8" r="4" fill="#2a2140" stroke="#8a6fd0" stroke-width="2.5"/>
+        <circle cx="45" cy="26" r="14" stroke="#e9dcff" stroke-width="4" fill="none"/>
+        <g class="cloth">
+          <path d="M28 34 L24 122 Q24 132 34 132 L58 132 Q66 132 65 122 L62 34 Q45 44 28 34 Z" fill="rgba(23,16,42,.55)" stroke="#8a6fd0" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M27 96 Q45 104 63 96" stroke="#ff5aa0" stroke-width="3.5" fill="none"/>
+          <path d="M27 106 Q45 113 63 106" stroke="rgba(255,90,160,.45)" stroke-width="2.5" fill="none"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+  <div class="bi-ob bi-drain">
+    <svg viewBox="0 0 50 30" fill="none">
+      <g class="bi-hand">
+        <ellipse cx="25" cy="15" rx="21" ry="11" fill="rgba(23,16,42,.6)" stroke="#8a6fd0" stroke-width="3"/>
+        <path d="M12 12 H38 M11 16 H39 M14 20 H36" stroke="#8a6fd0" stroke-width="2" stroke-linecap="round"/>
+      </g>
+    </svg>
+  </div>
+  <div class="bi-wet"></div>
+  <div class="bi-lit">
+    <div class="bi-ttl" id="bi-ttl">
+      <div class="e">NERO ARCHIVE PRESENTS</div>
+      <div class="l1 bi-hand2">욕실 슬리퍼</div>
+      <div class="l2 bi-hand2">외교학</div>
+      <div class="l3">BATHROOM SLIPPER DIPLOMACY</div>
+      <div class="pr">▸ 누르면 입장 ◂</div>
+    </div>
+  </div>
+  <button class="bi-sw" id="bi-sw" aria-label="전등 스위치">
+    <svg viewBox="0 0 100 124" fill="none">
+      <g class="bi-hand">
+        <rect x="14" y="12" width="72" height="100" rx="10" fill="#17102a" stroke="#e9dcff" stroke-width="5"/>
+        <rect x="36" y="34" width="28" height="56" rx="6" fill="#0b0616" stroke="#8a6fd0" stroke-width="3.5"/>
+        <g class="lever"><rect x="40" y="38" width="20" height="24" rx="4" fill="#7ec8ff" stroke="#e9dcff" stroke-width="3"/></g>
+        <circle cx="24" cy="22" r="2.5" fill="#8a6fd0"/><circle cx="76" cy="22" r="2.5" fill="#8a6fd0"/>
+        <circle cx="24" cy="102" r="2.5" fill="#8a6fd0"/><circle cx="76" cy="102" r="2.5" fill="#8a6fd0"/>
+        <circle class="glowdot" cx="50" cy="100" r="3.5" fill="#7ec8ff"/>
+      </g>
+    </svg>
+  </button>
+  <div class="bi-swtag">스위치 ↑</div>
+  <div class="bi-hint" id="bi-hint">불을 켜세요</div>
+  <button class="ld-skip" id="ld-skip">SKIP ▸</button>
+</div>
+<div id="bi-scrib">
+  <svg preserveAspectRatio="none"><path class="inkbase" id="bi-inkbase" d=""/><path class="ink" id="bi-inkpath" d=""/></svg>
+  <div class="pen" id="bi-pen">
+    <svg viewBox="0 0 64 64" fill="none">
+      <g class="bi-hand2">
+        <path d="M5 58 L14 44 L48 6 Q52 2 56 6 Q60 10 56 14 L20 50 Z" fill="#221636" stroke="#e9dcff" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M5 58 L14 44 L20 50 Z" fill="#8b2fd6" stroke="#e9dcff" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M42 10 L52 20" stroke="#8a6fd0" stroke-width="2.5" stroke-linecap="round"/>
+      </g>
+    </svg>
+  </div>
+</div>
 
 <!-- ===== 배경 (원본 그대로 / 1920x1080 캔버스 기준) ===== -->
 <div id="bg-deco"><div id="bg-canvas">
@@ -501,87 +744,209 @@ var posts=[];  // 글 올릴 때: {t:"제목", d:"2026.07.13", u:"./posts/파일
   },{passive:false});
 })();
 
-// 인트로: 리모컨 전원 → 화면 전체가 브라운관 (SKIP 지원)
+// 인트로: 욕실 형광등 (스위치로 점등 → 타이틀 클릭 → 펜 스크리블 입장, SKIP/ESC 지원)
 (function(){
-  var ld=document.getElementById('ld');if(!ld)return;
-  if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){ld.remove();return}
-  var st=document.getElementById('ld-stage'),timers=[],done=false,started=false;
+  var ld=document.getElementById('ld'),scrib=document.getElementById('bi-scrib');
+  if(!ld)return;
+  function cleanup(){
+    killT();ambKill();
+    if(boilIv){clearInterval(boilIv);boilIv=null}
+    removeEventListener('resize',setU);
+    document.removeEventListener('keydown',keyH);
+    if(ld.parentNode)ld.remove();
+    if(scrib.parentNode)scrib.remove();
+  }
+  if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){ld.remove();scrib.remove();return}
+
+  // 비율 단위: 화면 100u × 76u 벽면
+  function setU(){
+    var w=innerWidth,h=innerHeight,u;
+    if(w>h){u=Math.min(h/76,w/110)}else{u=w/96}
+    document.documentElement.style.setProperty('--biu',u+'px');
+  }
+  setU();addEventListener('resize',setU);
+
+  // 라인 보일 (손그림 선이 계속 끓음)
+  var seeds=['biS1','biS2','biS3','biS4','biS5'].map(function(i){return document.getElementById(i)});
+  var bs=1,boilIv=setInterval(function(){
+    bs=bs%5+1;
+    seeds.forEach(function(el,i){if(el)el.setAttribute('seed',bs+i)});
+  },140);
+
+  // 타일 벽 (랜덤 삐뚤) + 균열 낙서
+  (function(){
+    var t=document.getElementById('bi-tilesvg'),h='';
+    for(var y=40;y<600;y+=86+Math.random()*10){h+='<path d="M-10 '+y+' L810 '+(y+(Math.random()*8-4))+'" stroke="#8a6fd0" stroke-width="2.5"/>'}
+    for(var x=30;x<800;x+=92+Math.random()*12){h+='<path d="M'+x+' -10 L'+(x+(Math.random()*8-4))+' 610" stroke="#8a6fd0" stroke-width="2.5"/>'}
+    h+='<path d="M188 300 l14 18 l-6 14 l16 20 l-4 12" stroke="#8a6fd0" stroke-width="2" fill="none" opacity=".8"/>';
+    t.innerHTML='<g class="bi-hand">'+h+'</g>';
+  })();
+
+  // 빛 원뿔 먼지 입자
+  (function(){
+    var cone=document.getElementById('bi-cone');
+    for(var i=0;i<6;i++){
+      var m=document.createElement('div');m.className='bi-mote';
+      m.style.left=(34+Math.random()*32)+'%';
+      m.style.top=(12+Math.random()*46)+'%';
+      m.style.setProperty('--dx',((Math.random()-.5)*70)+'px');
+      m.style.setProperty('--dy',(20+Math.random()*50)+'px');
+      m.style.setProperty('--dur',(4.5+Math.random()*4)+'s');
+      m.style.setProperty('--dl',(-Math.random()*6)+'s');
+      cone.appendChild(m);
+    }
+  })();
+
+  // 형광등 토글
+  var hint=document.getElementById('bi-hint'),lamp=ld.querySelector('.bi-flamp'),
+      spark=document.getElementById('bi-spark'),glass=lamp.querySelector('.glass'),
+      core=lamp.querySelector('.core'),haze=lamp.querySelector('.haze'),
+      streak=lamp.querySelector('.streak'),caps=lamp.querySelectorAll('.capglow'),
+      cone=document.getElementById('bi-cone');
+  var timers=[],warm=false,busy=false,entering=false;
   function T(f,m){timers.push(setTimeout(f,m))}
-  function snd(){try{var a=new Audio('./select01.mp3');a.volume=.45;a.play().catch(function(){})}catch(e){}}
-  var SM='<svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="27" stroke="#ff4a5a" stroke-width="2.5"/><circle cx="20" cy="24" r="4" stroke="#ff4a5a" stroke-width="2"/><circle cx="40" cy="24" r="4" stroke="#ff4a5a" stroke-width="2"/><path d="M18 38 Q30 48 42 38" stroke="#ff4a5a" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>';
-  function flash(){var s=document.getElementById('ld-smf');if(!s)return;s.classList.add('go');st.classList.add('neg');setTimeout(function(){st.classList.remove('neg')},80);setTimeout(function(){s.classList.remove('go')},150)}
-  function smi(kind,c){
-    var eyes = kind===1
-      ? '<circle cx="20" cy="24" r="4" stroke="'+c+'" stroke-width="2.5"/><circle cx="40" cy="24" r="4" stroke="'+c+'" stroke-width="2.5"/>'
-      : kind===2
-      ? '<line x1="16" y1="20" x2="24" y2="28" stroke="'+c+'" stroke-width="3" stroke-linecap="round"/><line x1="24" y1="20" x2="16" y2="28" stroke="'+c+'" stroke-width="3" stroke-linecap="round"/><line x1="36" y1="20" x2="44" y2="28" stroke="'+c+'" stroke-width="3" stroke-linecap="round"/><line x1="44" y1="20" x2="36" y2="28" stroke="'+c+'" stroke-width="3" stroke-linecap="round"/>'
-      : '<path d="M20 26 C20 22 15 19 15 23 C15 25 20 28 20 28 C20 28 25 25 25 23 C25 19 20 22 20 26Z" stroke="'+c+'" stroke-width="2" fill="none"/><path d="M40 26 C40 22 35 19 35 23 C35 25 40 28 40 28 C40 28 45 25 45 23 C45 19 40 22 40 26Z" stroke="'+c+'" stroke-width="2" fill="none"/>';
-    return '<svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="27" stroke="'+c+'" stroke-width="3"/>'+eyes+'<path d="M18 38 Q30 48 42 38" stroke="'+c+'" stroke-width="3" stroke-linecap="round" fill="none"/></svg>';
+  function killT(){timers.forEach(clearTimeout);timers=[]}
+  function rawLamp(on,lv){
+    glass.style.fill=on?'url(#biTubeGrad)':'#161028';
+    core.style.opacity=on?1:0;haze.style.opacity=on?lv*.9:0;streak.style.opacity=on?0:.35;
+    caps.forEach(function(c){c.style.opacity=on?.9:0});
+    lamp.style.filter=on?'drop-shadow(0 0 26px rgba(233,220,255,'+(.5*lv)+'))':'none';
+    cone.style.opacity=on?lv*.9:0;
   }
-  var RMT='<svg viewBox="0 0 190 430" fill="none" xmlns="http://www.w3.org/2000/svg">'
-   +'<rect x="6" y="6" width="178" height="418" rx="30" fill="#3a2f60" stroke="#8b74d0" stroke-width="4"/>'
-   +'<rect x="16" y="16" width="158" height="398" rx="22" fill="#2a2148"/>'
-   +'<circle class="nx-pw" cx="55" cy="58" r="26" fill="rgba(255,90,160,.28)"/>'
-   +'<circle cx="55" cy="58" r="20" fill="#241c44" stroke="#ff5aa0" stroke-width="3.5"/>'
-   +'<path d="M55 47 L55 58" stroke="#ff5aa0" stroke-width="3.5" stroke-linecap="round"/>'
-   +'<path d="M46 52 A12.5 12.5 0 1 0 64 52" stroke="#ff5aa0" stroke-width="3.5" stroke-linecap="round" fill="none"/>'
-   +'<rect x="104" y="42" width="52" height="30" rx="9" fill="#241c44" stroke="#6b58a8" stroke-width="3"/>'
-   +'<text x="130" y="63" text-anchor="middle" font-family="DungGeunMo" font-size="15" fill="#b9a6ee">AV</text>'
-   +'<circle cx="95" cy="152" r="46" fill="#241c44" stroke="#6b58a8" stroke-width="3"/>'
-   +'<path d="M95 122 L95 182 M65 152 L125 152" stroke="#57468a" stroke-width="16" stroke-linecap="round"/>'
-   +'<circle cx="95" cy="152" r="13" fill="#8b74d0"/>'
-   +'<g fill="#241c44" stroke="#57468a" stroke-width="2.5">'
-   +'<rect x="34" y="222" width="34" height="26" rx="7"/><rect x="78" y="222" width="34" height="26" rx="7"/><rect x="122" y="222" width="34" height="26" rx="7"/>'
-   +'<rect x="34" y="258" width="34" height="26" rx="7"/><rect x="78" y="258" width="34" height="26" rx="7"/><rect x="122" y="258" width="34" height="26" rx="7"/>'
-   +'<rect x="34" y="294" width="34" height="26" rx="7"/><rect x="78" y="294" width="34" height="26" rx="7"/><rect x="122" y="294" width="34" height="26" rx="7"/>'
-   +'</g>'
-   +'<g font-family="DungGeunMo" font-size="13" fill="#9a8cc4" text-anchor="middle">'
-   +'<text x="51" y="240">1</text><text x="95" y="240">2</text><text x="139" y="240">3</text>'
-   +'<text x="51" y="276">4</text><text x="95" y="276">5</text><text x="139" y="276">6</text>'
-   +'<text x="51" y="312">7</text><text x="95" y="312">8</text><text x="139" y="312">9</text>'
-   +'</g>'
-   +'<rect x="34" y="338" width="54" height="60" rx="12" fill="#241c44" stroke="#57468a" stroke-width="2.5"/>'
-   +'<text x="61" y="362" text-anchor="middle" font-family="DungGeunMo" font-size="12" fill="#9a8cc4">VOL</text>'
-   +'<text x="61" y="388" text-anchor="middle" font-family="DungGeunMo" font-size="14" fill="#b9a6ee">+ −</text>'
-   +'<rect x="102" y="338" width="54" height="60" rx="12" fill="#241c44" stroke="#57468a" stroke-width="2.5"/>'
-   +'<text x="129" y="362" text-anchor="middle" font-family="DungGeunMo" font-size="12" fill="#9a8cc4">CH</text>'
-   +'<text x="129" y="388" text-anchor="middle" font-family="DungGeunMo" font-size="14" fill="#b9a6ee">∧ ∨</text>'
-   +'<text x="95" y="205" text-anchor="middle" font-family="Galmuri9" font-size="10" fill="#7a68a8" letter-spacing="3">NERO REMOTE</text>'
-   +'</svg>';
-  function out(){
-    if(done)return;done=true;
-    timers.forEach(clearTimeout);
-    flash();
-    setTimeout(function(){ld.classList.add('tear');setTimeout(function(){ld.remove()},600)},170);
+  function clearRaw(){glass.style.fill='';core.style.opacity='';haze.style.opacity='';streak.style.opacity='';caps.forEach(function(c){c.style.opacity=''});lamp.style.filter='';cone.style.opacity=''}
+  function turnOn(){
+    busy=true;
+    ld.classList.add('flick');ld.classList.remove('after');
+    hint.textContent='';
+    var seq = warm
+      ? [[90,1],[150,0],[300,1]]
+      : [[130,1],[170,0],[430,.6],[490,0],[760,1],[850,.15],[905,0],[1140,.9],[1260,.08],[1330,1]];
+    seq.forEach(function(s){T(function(){
+      rawLamp(s[1]>.4,Math.max(s[1],.3));
+      spark.classList.toggle('zap', s[1]>0 && s[1]<1);
+    },s[0])});
+    var end=(warm?420:1650);
+    T(function(){
+      spark.classList.remove('zap');clearRaw();
+      ld.classList.remove('flick');ld.classList.add('lit','warmed');
+      warm=true;busy=false;
+      ambSchedule();
+    },end);
   }
-  st.innerHTML='<div class="nx-crt"></div>'
-   +'<div class="nx-av">AV-1</div>'
-   +'<div class="nx-sled" id="nx-sl"><span>STANDBY</span><i></i></div>'
-   +'<div class="nx-rmt" id="nx-rm">'+RMT+'</div>'
-   +'<div class="nx-hint" style="left:38%">리모컨의 전원 버튼을 누르세요 ▸</div>'
-   +'<div class="nx-curve"></div>'
-   +'<div class="ld-smf" id="ld-smf">'+SM+'</div>';
-  document.getElementById('nx-rm').addEventListener('click',function(){
-    if(started||done)return;started=true;
-    snd();
-    this.classList.add('dn');
-    document.getElementById('nx-sl').classList.add('on');
-    var h=st.querySelector('.nx-hint');if(h)h.remove();
-    var scr=document.createElement('div');scr.style.cssText='position:absolute;inset:0;z-index:5';
-    st.insertBefore(scr,st.querySelector('.nx-curve'));
-    scr.innerHTML='<div class="nx-dot"></div>';
-    T(function(){scr.innerHTML='<div class="nx-lh"></div>'},480);
+  function turnOff(){
+    killT();ambKill();spark.classList.remove('zap');
+    ld.classList.remove('flick','lit');
+    busy=true;
+    rawLamp(false,0);
+    T(function(){rawLamp(true,.35)},70);
     T(function(){
-      scr.innerHTML='<div class="nx-open">'
-       +'<div class="nx-cbars"><i style="background:#e9dcff"></i><i style="background:#ffd35a"></i><i style="background:#7ec8ff"></i><i style="background:#5aff9e"></i><i style="background:#ff5aa0"></i><i style="background:#b44aff"></i><i style="background:#2a2148"></i></div>'
-       +'<div class="ld-noise" style="opacity:.5"></div></div>';
-    },840);
-    T(function(){
-      scr.innerHTML='<div class="nx-bcast"><div class="trio">'+smi(1,'#e9dcff')+smi(2,'#e9dcff')+smi(3,'#e9dcff')+'</div><div class="hl">HELLO :D</div><div class="ld-noise" style="opacity:.18"></div></div>';
-    },1650);
-    T(out,3050);
+      rawLamp(false,0);clearRaw();
+      ld.classList.add('after');
+      T(function(){ld.classList.remove('after')},380);
+      busy=false;
+    },140);
+    hint.textContent='불을 켜세요';
+  }
+  document.getElementById('bi-sw').addEventListener('click',function(){
+    if(entering)return;
+    if(ld.classList.contains('lit')){turnOff();return}
+    if(busy){if(ld.classList.contains('flick'))turnOff();return}
+    turnOn();
   });
-  document.getElementById('ld-skip').addEventListener('click',function(){out()});
+
+  // 앰비언트: 정전 / 벌레 부딪힘
+  var ambT=[];
+  function ambSchedule(){
+    if(!ld.classList.contains('lit'))return;
+    ambT.push(setTimeout(function brown(){
+      if(!ld.classList.contains('lit')||entering)return;
+      ld.classList.add('brown');
+      rawLamp(false,0);
+      ambT.push(setTimeout(function(){rawLamp(true,.4)},90));
+      ambT.push(setTimeout(function(){rawLamp(false,0)},160));
+      ambT.push(setTimeout(function(){
+        clearRaw();ld.classList.remove('brown');
+        if(ld.classList.contains('lit'))ambT.push(setTimeout(brown,14000+Math.random()*10000));
+      },300));
+    },14000+Math.random()*10000));
+    ambT.push(setTimeout(function bump(){
+      if(!ld.classList.contains('lit')||entering)return;
+      var sw=lamp.querySelector('.swing');
+      sw.classList.add('bump');
+      rawLamp(true,.55);
+      ambT.push(setTimeout(function(){if(ld.classList.contains('lit'))clearRaw()},120));
+      ambT.push(setTimeout(function(){sw.classList.remove('bump')},520));
+      ambT.push(setTimeout(bump,6000+Math.random()*4000));
+    },6000+Math.random()*4000));
+  }
+  function ambKill(){ambT.forEach(clearTimeout);ambT=[];ld.classList.remove('brown');var sw=lamp.querySelector('.swing');if(sw)sw.classList.remove('bump')}
+
+  // 펜 스크리블 입장
+  var inkP=document.getElementById('bi-inkpath'),inkB=document.getElementById('bi-inkbase'),
+      pen=document.getElementById('bi-pen'),inkLen=0;
+  function buildScrib(){
+    var W=innerWidth,H=innerHeight;
+    var th=-32*Math.PI/180;
+    var dx=Math.cos(th),dy=Math.sin(th),nx=-Math.sin(th),ny=Math.cos(th);
+    var cx=W/2,cy=H/2;
+    var S=(W*Math.abs(dx)+H*Math.abs(dy))/2+90;
+    var R=(W*Math.abs(nx)+H*Math.abs(ny))/2;
+    var rows=Math.max(8,Math.round((R*2)/95)),gap=(R*2)/rows,sw=gap*1.6;
+    var d='',dir=1;
+    for(var r=0;r<rows;r++){
+      var t=-R+gap*(r+.5)+(Math.random()*8-4);
+      var ox=cx+nx*t, oy=cy+ny*t;
+      var ax=ox-dx*S*dir, ay=oy-dy*S*dir;
+      var bx=ox+dx*S*dir, by=oy+dy*S*dir;
+      var mx=ox+(Math.random()*50-25), my=oy+(Math.random()*50-25);
+      d+=(r===0?'M'+ax.toFixed(1)+' '+ay.toFixed(1):'')+' Q'+mx.toFixed(1)+' '+my.toFixed(1)+' '+bx.toFixed(1)+' '+by.toFixed(1);
+      if(r<rows-1){
+        var t2=-R+gap*(r+1.5);
+        var qx=bx+nx*gap*.5+dx*dir*30, qy=by+ny*gap*.5+dy*dir*30;
+        d+=' Q'+qx.toFixed(1)+' '+qy.toFixed(1)+' '+(cx+nx*t2+dx*S*dir).toFixed(1)+' '+(cy+ny*t2+dy*S*dir).toFixed(1);
+      }
+      dir*=-1;
+    }
+    inkP.setAttribute('d',d);inkP.setAttribute('stroke-width',sw);
+    inkB.setAttribute('d',d);inkB.setAttribute('stroke-width',sw*.94);
+    inkLen=inkP.getTotalLength();
+    inkP.style.strokeDasharray=inkLen+' '+inkLen;
+    inkB.style.strokeDasharray=inkLen+' '+inkLen;
+  }
+  function scribAnim(from,to,dur,penAt,done){
+    var t0=performance.now();
+    function step(now){
+      var p=Math.min(1,(now-t0)/dur);
+      var e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+      var off=from+(to-from)*e;
+      inkP.style.strokeDashoffset=off;
+      inkB.style.strokeDashoffset=off;
+      var pt=inkP.getPointAtLength(Math.max(0,Math.min(inkLen,penAt(e))));
+      pen.style.left=pt.x+'px';pen.style.top=pt.y+'px';
+      if(p<1)requestAnimationFrame(step);else if(done)done();
+    }
+    requestAnimationFrame(step);
+  }
+  function doEnter(){
+    if(entering||!ld.classList.contains('lit'))return;
+    entering=true;
+    killT();ambKill();
+    buildScrib();
+    scrib.classList.add('on');
+    pen.style.opacity=1;
+    // 1) 사선으로 쫙쫙 칠해서 화면 덮기
+    scribAnim(inkLen,0,1050,function(e){return inkLen*e},function(){
+      ld.style.display='none'; // 잉크 밑에서 본편 공개 준비
+      // 2) 같은 사선을 되짚으며 지워서 본편 드러내기
+      setTimeout(function(){
+        scribAnim(0,-inkLen,950,function(e){return inkLen*e},function(){cleanup()});
+      },200);
+    });
+  }
+  document.getElementById('bi-ttl').addEventListener('click',doEnter);
+  document.getElementById('ld-skip').addEventListener('click',function(){cleanup()});
+  var keyH=function(e){if(e.key==='Escape')cleanup()};
+  document.addEventListener('keydown',keyH);
 })();
 
 // PLAYLIST 플레이어 —— 곡 추가/삭제는 이 목록만 고치면 됨
